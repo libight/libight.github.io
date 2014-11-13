@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['operator_3d',['operator=',['../classight_1_1DNSRequest.html#afc95bd5e1c21c77cb1cad8b8182838a7',1,'ight::DNSRequest::operator=(DNSRequest &amp;)=delete'],['../classight_1_1DNSRequest.html#ac1b8912736105d922b73e8101a4b0894',1,'ight::DNSRequest::operator=(DNSRequest &amp;&amp;)=default'],['../classight_1_1DNSSettings.html#a0beba7a3c99a235aa113a6cad6e68102',1,'ight::DNSSettings::operator=(DNSSettings &amp;)=default'],['../classight_1_1DNSSettings.html#a98ae53e2327064edd350d9d5eb83022f',1,'ight::DNSSettings::operator=(DNSSettings &amp;&amp;)=default'],['../classight_1_1DNSResolver.html#a2bb1f7752cb6f6e1170b2d6248ed6ebb',1,'ight::DNSResolver::operator=(DNSResolver &amp;)=delete'],['../classight_1_1DNSResolver.html#a4b27ad7c5d1d1612d4dcc19a33ae0462',1,'ight::DNSResolver::operator=(DNSResolver &amp;&amp;)=default']]]
+];

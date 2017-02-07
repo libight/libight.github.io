@@ -8,6 +8,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
+
+<div class="hero">
+    <div class="wrap">
+    <div class="logo">
+        <img src="static/measurement-kit.png" alt="measurement-kit logo" class="img-responsive center-block" />
+    </div>
+    <div class="text">
+        <strong>MeasurementKit</strong>
+    </div>
+    <div class="minitext">
+        Portable C++11 network measurements library
+    </div>
+    </div>
+</div>
+<div class="nav-main">
+    <div class="wrap">
+  <ul class="nav nav-list nav-justified">
+    <li><a href="#about">About</a></li>
+    <li><a href="#users">Users</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#sources">Sources</a></li>
+    <li><a href="#documentation">Documentation</a></li>
+  </ul>
+    </div>
+</div>
+
+
     <div class="container">
 
 <div class="hidden-sm hidden-xs">
@@ -17,27 +45,8 @@
   </a>
 </div>
 
-<div class="page-header app-center">
-  <img src="static/measurement-kit.png" alt="measurement-kit logo"
-       class="center" id="measurement-kit-logo" />
-  <h1 class="display-1">
-    MeasurementKit<br />
-    <small>Portable C++11 network measurements library</small>
-  </h1>
-</div>
-
-<div>
-  <ul class="nav nav-pills nav-justified">
-    <li><a href="#about">About</a></li>
-    <li><a href="#users">Users</a></li>
-    <li><a href="#architecture">Architecture</a></li>
-    <li><a href="#implementation">Implementation</a></li>
-    <li><a href="#sources">Sources</a></li>
-    <li><a href="#documentation">Documentation</a></li>
-  </ul>
-</div>
-
-<p class="app-large" id="about"> <strong>About.</strong> MeasurementKit
+<h1 id="about">About</h1>
+<p class="app-large">MeasurementKit
 is a C++11 library that implements open network measurement methodologies
 (performance, censorship, etc.) on Unix-like operating systems such
 as Android, iOS, Linux, and macOS.  It is meant to be embedded by
@@ -53,7 +62,8 @@ plans include adding support for Windows operating systems and for
 the <a href="https://github.com/bittorrent/libutp">uTP</a> transport
 protocol.</p>
 
-<p class="app-large" id="users"> <strong>Users.</strong> MeasurementKit
+<h1 id="users">Users</h1>
+<p class="app-large">MeasurementKit
 is currently used to implement the mobile version of <a
 href="https://ooni.torproject.org/">OONI</a> for <a
 href="https://github.com/TheTorProject/ooniprobe-android">Android</a> and
@@ -66,7 +76,8 @@ test is also integrated by a startup into its products.</p>
 alt="ooni-mobile" class="app-center" style="width: 50%;" /><br
 /><small>The interface of ooniprobe-ios</small> </p>
 
-<p class="app-large" id="architecture"> <strong>Architecture.</strong>
+<h1 id="architecture">Architecture</h1>
+<p class="app-large">
 MeasurementKit has a layered architecture. The top level abstraction
 layer, called <mark>nettests</mark> contains code to instruct the
 library to run network tests. For example, the following C++11 code
@@ -126,7 +137,8 @@ the project <a
 href="https://github.com/measurement-kit/measurement-kit#readme">
 README</a> for more info.</p>
 
-<p class="app-large" id="implementation"> <strong>Implementation.</strong>
+<h1 id="implementation">Implementation</h1>
+<p class="app-large">
 The <mark>nettests</mark> module exports an internal domain specific
 language that allows you to describe what test you want to run and
 with which options. Internally, we seldomly use raw pointers and
@@ -141,7 +153,8 @@ We use function templates using low level API functions as parameters,
 which allows us to override their behavior in the unit tests. We
 aim to keep our code coverage high (currently it is over 90%).</p>
 
-<p class="app-large" id="sources"> <strong>Sources.</strong> All our code
+<h1 id="sources">Sources</h1>
+<p class="app-large">All our code
 is inside the <a href="https://github.com/measurement-kit">measurement-kit</a>
 GitHub organization. The main repository, also called
 <a href="https://github.com/measurement-kit/measurement-kit">
@@ -160,7 +173,8 @@ branch is meant to contain stable code to be used in production. The
 <mark>master</mark> branch is also stable but the code it contains breaks
 the compatibility with previous releases.</p>
 
-<p class="app-large" id="documentation"> <strong>Documentation.</strong>
+<h1 id="documentation">Documentation</h1>
+<p class="app-large">
 We keep documentation <a
 href="https://github.com/measurement-kit/measurement-kit/tree/master/doc">
 in the measurement-kit repository</a>. We try to keep the documentation

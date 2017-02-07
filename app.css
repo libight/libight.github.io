@@ -1,0 +1,15 @@
+.app-center {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    text-align: center;
+}
+
+#measurement-kit-logo {
+    width: 156px;
+}
+
+.app-large {
+    font-size: 150%;
+}

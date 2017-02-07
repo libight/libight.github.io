@@ -1,4 +1,4 @@
-# MeasurementKit website at github.io
+# MeasurementKit website
 
 This repository contains the sources of the website available
-at http://measurement-kit.github.io/.
+at https://measurement-kit.github.io/.

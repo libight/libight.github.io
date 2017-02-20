@@ -176,13 +176,29 @@ branch is meant to contain stable code to be used in production. The
 the compatibility with previous releases.</p>
 
 <h1 id="releases">Releases</h1>
-<p class="app-large">Releases are published at the
-<a href="https://github.com/measurement-kit/measurement-kit/releases">
-release page of the main repository</a>. Releases typically contain
-the sources tarball and cross compiled binaries (e.g. for Android). We
-also publish releases in the example app repositories. Other repositories
-have an ancillary function; they may contain tags but they typically do
-not contain binaries.</p>
+<p class="app-large">We publish the following:</p>
+
+<ol>
+  <li class="app-large">Source tarballs processed with
+    <code>autoreconf</code> such that you can run
+    <code>./configure</code> directly;</li>
+  <li class="app-large">Debian packages;</li>
+  <li class="app-large">Android cross compiled JNI libraries and related
+    Java sources;</li>
+  <li class="app-large">Source releases for iOS using CocoaPods;</li>
+  <li class="app-large">A tap for HomeBrew;</li>
+  <li class="app-large">Cross compiled dependencies for iOS and
+    Android.</li>
+</ol>
+
+<p class="app-large">See <a
+  href="https://github.com/measurement-kit/measurement-kit#readme">the
+  README</a> for more information on 1-4. The tap for homebrew is
+  <a href="https://github.com/measurement-kit/homebrew-measurement-kit">
+  measurement-kit/homebrew-measurement-kit</a> at GitHub. The repo
+  with cross compiled dependencies is
+  <a href="https://github.com/measurement-kit/dependencies">
+  measurement-kit/dependencies</a> at GitHub.</p>
 
 <h1 id="documentation">Documentation</h1>
 <p class="app-large">

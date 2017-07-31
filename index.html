@@ -18,7 +18,7 @@
         <strong>MeasurementKit</strong>
     </div>
     <div class="minitext">
-        Portable C++11 network measurements library
+        Portable C++14 network measurements library
     </div>
     </div>
 </div>
@@ -48,7 +48,7 @@
 
 <h1 id="about">About</h1>
 <p class="app-large">MeasurementKit
-is a C++11 library that implements open network measurement methodologies
+is a C++14 library that implements open network measurement methodologies
 (performance, censorship, etc.) on Unix-like operating systems such
 as Android, iOS, Linux, and macOS.  It is meant to be embedded by
 third party applications with specific network measurement needs
@@ -82,7 +82,7 @@ alt="ooni-mobile" class="app-center" style="width: 50%;" /><br
 <p class="app-large">
 MeasurementKit has a layered architecture. The top level abstraction
 layer, called <mark>nettests</mark> contains code to instruct the
-library to run network tests. For example, the following C++11 code
+library to run network tests. For example, the following C++14 code
 runs <a href="https://github.com/ndt-project/ndt">NDT</a>:
 
 <pre class="app-large">
@@ -144,7 +144,7 @@ README</a> for more info.</p>
 The <mark>nettests</mark> module exports an internal domain specific
 language that allows you to describe what test you want to run and
 with which options. Internally, we seldomly use raw pointers and
-prefer instead using C++11 smart pointers. We specifically implemented
+prefer instead using C++14 smart pointers. We specifically implemented
 a shared smart pointer, called <mark>Var</mark> and based on the
 C++ standard library <mark>shared_ptr</mark>, that checks whether
 the underlying pointer is <mark>nullptr</mark> and, in that case,
@@ -160,7 +160,7 @@ aim to keep our code coverage high (currently it is over 90%).</p>
 is inside the <a href="https://github.com/measurement-kit">measurement-kit</a>
 GitHub organization. The main repository, also called
 <a href="https://github.com/measurement-kit/measurement-kit">
-measurement-kit</a>, contains the C++11 library,
+measurement-kit</a>, contains the C++14 library,
 the <mark>measurement_kit</mark> executable, documentation and
 examples. Other important repositories are:
 <a href="https://github.com/measurement-kit/android-libs">android-libs</a>,

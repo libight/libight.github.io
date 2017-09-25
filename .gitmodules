@@ -1,0 +1,3 @@
+[submodule "content/measurement-kit"]
+	path = content/measurement-kit
+	url = https://github.com/measurement-kit/measurement-kit.git

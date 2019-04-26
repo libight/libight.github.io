@@ -18,24 +18,10 @@
         <strong>Measurement Kit</strong>
     </div>
     <div class="minitext">
-        Portable C++14 network measurements library
+        Network measurement engine
     </div>
     </div>
 </div>
-<div class="nav-main">
-    <div class="wrap">
-  <ul class="nav nav-list nav-justified">
-    <li><a href="#about">About</a></li>
-    <li><a href="#users">Users</a></li>
-    <li><a href="#architecture">Architecture</a></li>
-    <li><a href="#implementation">Implementation</a></li>
-    <li><a href="#sources">Sources</a></li>
-    <li><a href="#releases">Releases</a></li>
-    <li><a href="#documentation">Documentation</a></li>
-  </ul>
-    </div>
-</div>
-
 
     <div class="container">
 
@@ -46,185 +32,48 @@
   </a>
 </div>
 
-<h1 id="about">About</h1>
-<p class="app-large">Measurement Kit
-is a C++14 library that implements open network measurement methodologies
+<p class="app-large" style="margin-top: 30px;">Measurement Kit is a network measurement engine.
+It implements open network measurement methodologies
 (performance, censorship, etc.) on Unix-like operating systems such
-as Android, iOS, Linux, and macOS.  It is meant to be embedded by
+as Android, iOS, Linux, and macOS, as well as on Windows.  It is meant to be embedded by
 third party applications with specific network measurement needs
 and/or to be used by researchers to implement novel network measurement
-tools.  It started as a common engine to implement the mobile
-versions of <a href="https://ooni.torproject.org/">OONI</a> and <a
-href="https://neubot.nexacenter.org/">Neubot</a>, and since then
-has grown to include also the implementation of <a
-href="http://portolanproject.iit.cnr.it/">Portolan</a> traceroute and <a
-href="https://github.com/ndt-project/ndt">NDT</a> tests. Future
-plans include adding support for Windows operating systems and for
-the <a href="https://github.com/bittorrent/libutp">uTP</a> transport
-protocol.</p>
+tools. It started as an engine implementing
+<a href="https://ooni.torproject.org/">OONI</a> nettests and since then
+has grown to include also other nettests.
 
-<h1 id="users">Users</h1>
 <p class="app-large">Measurement Kit
-is currently used to implement the mobile version of <a
-href="https://ooni.torproject.org/">OONI</a> for <a
-href="https://github.com/TheTorProject/ooniprobe-android">Android</a> and
-<a href="https://github.com/TheTorProject/ooniprobe-ios">iOS</a>.
-Our implementation of the <a
+is currently used to implement <a
+href="https://ooni.torproject.org/">OONI apps</a> for all platforms. It
+is also integrated by other parties, mainly to run our implementation
+of the <a
 href="https://github.com/ndt-project/ndt">NDT</a> network performance
-test is also integrated by <a href="https://www.plumewifi.com">Plume
-Design, Inc.</a> into its products.</p>
+test on mobile platforms.</p>
 
-<p style="text-align: center;"> <img src="static/ooni-mobile.jpg"
-alt="ooni-mobile" class="app-center" style="width: 50%;" /><br
-/><small>The interface of ooniprobe-ios</small> </p>
-
-<h1 id="architecture">Architecture</h1>
-<p class="app-large">
-Measurement Kit has a layered architecture. The top level abstraction
-layer, called <mark>nettests</mark> contains code to instruct the
-library to run network tests. For example, the following C++14 code
-runs <a href="https://github.com/ndt-project/ndt">NDT</a>:
-
-<pre class="app-large">
-#include &lt;measurement_kit/nettests.hpp&gt;
-#include &lt;iostream&gt;
-
-int main() {
-  mk::nettests::NdtTest()
-    .set_verbosity(MK_LOG_INFO)
-    .set_options("no_file_report", "1")
-    .set_options("save_real_probe_ip", "1")
-    .set_options("save_real_probe_asn", "0")
-    .set_options("save_real_probe_cc", "0")
-    .set_options("dns/engine", "system")
-    .run();
-}
-</pre>
-
-<p class="app-large">More complex examples are available <a
-href="https://github.com/measurement-kit/measurement-kit/tree/master/example/nettests">in
-the source tree</a>. Below <mark>nettests</mark>, there are modules
-implementing specific testing methodologies, such as <mark>ndt</mark>,
-which implements the NDT test, <mark>ooni</mark>, which implements
-OONI tests. Underneath, there are utility modules such as
-<mark>mlabns</mark>, which implements the protocol to talk with <a
-href="http://mlab-ns.appspot.com/">Measurement Lab name server</a>,
-and <mark>report</mark>, which is used by <mark>nettests</mark> to
-store results locally and save them remotely.</p>
-
-<p class="app-large">Below them, there is HTTP code, in the
-<mark>http</mark> module, DNS code, in the <mark>dns</mark> module,
-and traceroute code in the <mark>traceroute</mark> module. They are
-based on the <mark>net</mark> module that in turn depends on the
-<mark>common</mark> and <mark>libevent</mark> modules that define,
-respectively, common code and code used to talk with the <a
-href="https://github.com/libevent/libevent">libevent engine</a>.
-In addition to libevent, other dependencies are: <a
-href="https://github.com/nodejs/http-parser">http-parser</a>, <a
-href="https://github.com/libressl-portable/portable">libressl</a>
-(or alternatively <a
-href="https://github.com/openssl/openssl">OpenSSL</a>), <a
-href="https://github.com/maxmind/geoip-api-c">GeoIP</a>.</p>
-
-<p class="app-large">The following diagram summarizes the architecture:</p>
-
-<p style="text-align: center;"><img src="static/mk-arch.svg" alt="mk-architecture"
-class="app-center" style="width: 50%;" /><br /><small>The architecture
-of Measurement Kit</small></p>
-
-<p class="app-large">Our cross build system allows us to cross
-compile dependencies for iOS and Android. For macOS and Linux, we
-assume that the user has installed the required dependencies. See
-the project <a
-href="https://github.com/measurement-kit/measurement-kit#readme">
-README</a> for more info.</p>
-
-<h1 id="implementation">Implementation</h1>
-<p class="app-large">
-The <mark>nettests</mark> module exports an internal domain specific
-language that allows you to describe what test you want to run and
-with which options. Internally, we seldomly use raw pointers and
-prefer instead using C++14 smart pointers. We specifically implemented
-a shared smart pointer, called <mark>Var</mark> and based on the
-C++ standard library <mark>shared_ptr</mark>, that checks whether
-the underlying pointer is <mark>nullptr</mark> and, in that case,
-raises an exception. We use <mark>lambda</mark> functions quite
-often and provide functional interfaces whenever there is no need
-to have explicit state, so to simplify interacting with the code.
-We use function templates using low level API functions as parameters,
-which allows us to override their behavior in the unit tests. We
-aim to keep our code coverage high (currently it is over 90%).</p>
-
-<h1 id="sources">Sources</h1>
 <p class="app-large">All our code
 is inside the <a href="https://github.com/measurement-kit">measurement-kit</a>
 GitHub organization. The main repository, also called
 <a href="https://github.com/measurement-kit/measurement-kit">
-measurement-kit</a>, contains the C++14 library,
-the <mark>measurement_kit</mark> executable, documentation and
-examples. Other important repositories are:
-<a href="https://github.com/measurement-kit/android-libs">android-libs</a>,
-which contains code specific to Android,
-<a href="https://github.com/measurement-kit/android-example">
-android-example</a>, which contains an example Android app, and
-<a href="https://github.com/measurement-kit/ios-example">ios-example</a>,
-which contains an example iOS app. See below for more information
-about <a href="#releases">binary releases</a>.</p>
+measurement-kit</a> is the entry point to learn more
+about Measurement Kit.</p>
 
-<h1 id="releases">Releases</h1>
-<p class="app-large">We publish the following:</p>
-
-<ol>
-  <li class="app-large">Source tarballs processed with
-    <code>autoreconf</code> such that you can run
-    <code>./configure</code> directly;</li>
-  <li class="app-large">Debian packages;</li>
-  <li class="app-large">Android AAR including cross compiled JNI libraries
-    and related Java sources;</li>
-  <li class="app-large">Source releases for iOS using CocoaPods;</li>
-  <li class="app-large">A tap for HomeBrew;</li>
-  <li class="app-large">Cross compiled dependencies for iOS and
-    Android.</li>
-</ol>
-
-<p class="app-large">See <a
-  href="https://github.com/measurement-kit/measurement-kit#readme">the
-  README</a> for more information on 1-4. The tap for homebrew is
-  <a href="https://github.com/measurement-kit/homebrew-measurement-kit">
-  measurement-kit/homebrew-measurement-kit</a> at GitHub. The repo
-  with cross compiled dependencies is
-  <a href="https://github.com/measurement-kit/dependencies">
-  measurement-kit/dependencies</a> at GitHub.</p>
-
-<h1 id="documentation">Documentation</h1>
-<p class="app-large">
-We keep documentation <a
-href="https://github.com/measurement-kit/measurement-kit/tree/master/doc">
-in the measurement-kit repository</a>. We try to keep the documentation
-up to date with the code. In general, however, the <mark>stable</mark>
-branch contains documentation more in-sync with the corresponding code,
-because such branch is closer to releases.</p>
-
-</div>
-
-<hr />
-
-<footer class="footer app-center">
-  <div class="container">
-
-<p>Measurement Kit is a project by <a
+<p class="app-large">Measurement Kit is a project by <a
 href="https://github.com/bassosimone">@bassosimone</a>, <a
 href="https://github.com/hellais">@hellais</a>, et al, carried out
 in 2013&mdash;2017 in the context of <a href="https://nexa.polito.it/">Nexa
 Center</a>'s <a href="https://nexa.polito.it/morfeo">MORFEO</a> and
 <a href="https://nexa.polito.it/neubot">Neubot</a> projects, and
 financed by the European Commission (for MORFEO) and by <a
-href="http://measurementlab.net/">Measurement Lab</a> and <a
+href="https://measurementlab.net/">Measurement Lab</a> and <a
 href="https://www.google.com/">Google</a> through two distinct
-research grants.</p>
+research grants. In 2018 Measurement Kit has been financed
+through a
+<a href="https://www.opentech.fund/funds/icfp/">ICFP OTF Fellowship</a>
+at <a href="https://measurementlab.net/">Measurement Lab</a>.
+Since 2019 Measurement Kit is a
+<a href="https://ooni.torproject.org/">OONI</a> project.</p>
 
-  </div>
-</footer>
-    
+</div>
+
   </body>
 </html>
